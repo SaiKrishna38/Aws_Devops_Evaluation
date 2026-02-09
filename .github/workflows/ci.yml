@@ -46,7 +46,7 @@ jobs:
           IMAGE_TAG: latest
         run: |
           sed "s|IMAGE_URI|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" \
-            .aws/task-definition.json > task-def.json
+            .aws/task-def.json > task-def.json
 
       - name: loadingtask definition
         run: |
