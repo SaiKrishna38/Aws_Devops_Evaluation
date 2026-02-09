@@ -50,6 +50,10 @@ jobs:
 
       - name: defining new task in the github
         run: |
+          TASK_DEF_ARN=$(aws ecs register-task-definition \
+              --cli-input-json file://task-def.json \
+              --query 'taskDefinition.taskDefinitionArn' \
+              --output text)
           TASK_DEF_ARN=$(aws ecs register-task-def \
             --cli-input-json file://task-def.json \
             --query 'taskDefinition.taskDefintionAr' \
