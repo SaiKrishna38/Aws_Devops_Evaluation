@@ -40,7 +40,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-      - name: Render ECS task definition
+      - name: Rendering ECS task definition
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
@@ -48,7 +48,7 @@ jobs:
           sed "s|IMAGE_URI|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" \
              .aws/task-def.json > task-def.json
 
-      - name: Register new task definition
+      - name: defining new task in the github
         run: |
           TASK_DEF_ARN=$(aws ecs register-task-def \
             --cli-input-json file://task-def.json \
