@@ -46,4 +46,11 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           sed "s|IMAGE_URI|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" \
-            
+             .aws/task-def.json > task-def.json
+
+      - name: Register new task definition
+        run: |
+          TASK_DEF_ARN=$(aws ecs register-task-def \
+            --cli-input-json file://task-def.json \
+            --query 'taskDefinition.taskDefintionAr' \
+            --output text)
